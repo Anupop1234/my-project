@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>If you tired + Cute Cat</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('cat-background.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      height: 100vh;
+      padding-top: 30px;
+    }
+
+    h1, h2 {
+      color: #ff6b81;
+      background: rgba(255, 255, 255, 0.7);
+      padding: 10px 20px;
+      border-radius: 20px;
+      margin-bottom: 20px;
+    }
+
+    button {
+      background-color: #ff9aa2;
+      color: white;
+      border: none;
+      border-radius: 15px;
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      transition: 0.3s ease;
+      animation: bounce 3s infinite;
+    }
+
+    button:hover {
+      background-color: #ff6b81;
+    }
+
+    #volume-controls {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+    }
+
+    #volume-controls button {
+      background-color: #ffd6d6;
+      color: #333;
+      border: none;
+      border-radius: 12px;
+      padding: 8px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      transition: 0.2s ease;
+    }
+
+    #volume-controls button:hover {
+      background-color: #ffb3b3;
+    }
+
+    .fade-out {
+      animation: fadeOut 0.8s forwards;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.8s forwards;
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: scale(0.98);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+
+    @keyframes bounce {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    #page1, #page2 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    #page2 {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <audio id="bg-music" src="landokmai.mp3" autoplay loop preload="auto"></audio>
+
+  <div id="volume-controls">
+    <button onclick="decreaseVolume()">➖ ลดเสียง</button>
+    <button onclick="toggleMute()">🔇 ปิด/เปิดเสียง</button>
+    <button onclick="increaseVolume()">➕ เพิ่มเสียง</button>
+  </div>
+
+  <!-- หน้าแรก -->
+  <div id="page1">
+    <h1>🐾 If you tired</h1>
+    <button onclick="goToNextPage()">กดตรงนี้</button>
+  </div>
+
+  <!-- หน้าถัดไป -->
+  <div id="page2">
+    <h2>"I don't know what you've been through, but I hope today is a good day for you. :)"</h2>
+  </div>
+
+  <script>
+    const bgMusic = document.getElementById("bg-music");
+    bgMusic.volume = 0.2;
+
+    function increaseVolume() {
+      if (bgMusic.volume < 1) {
+        bgMusic.volume = Math.min(1, bgMusic.volume + 0.1);
+      }
+    }
+
+    function decreaseVolume() {
+      if (bgMusic.volume > 0) {
+        bgMusic.volume = Math.max(0, bgMusic.volume - 0.1);
+      }
+    }
+
+    function toggleMute() {
+      bgMusic.muted = !bgMusic.muted;
+    }
+
+    function goToNextPage() {
+        const bgMusic = document.getElementById("bg-music");
+  bgMusic.play(); // 👈 ต้องเรียก play ที่นี่ ถึงจะทำงาน
+  // จากนั้นค่อยเปลี่ยนหน้า
+      const page1 = document.getElementById("page1");
+      const page2 = document.getElementById("page2");
+
+      page1.classList.add("fade-out");
+
+      setTimeout(() => {
+        page1.style.display = "none";
+        page2.style.display = "flex";
+        page2.classList.add("fade-in");
+      }, 800);
+    }
+  </script>
+</body>
+</html>
